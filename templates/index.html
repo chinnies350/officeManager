@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Office Messenger</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/messenger/static/css/new_page_style.css">
+		<link rel="stylesheet" href="/messenger/static/css/mediaquery.css">
+		<link rel="icon" href="/messenger/static/chatIcon.png">
+		<link rel="manifest" href="/messenger/static/manifest.webmanifest">
+		<!-- <script src="/messenger/static/js/install_worker.js" defer></script> -->
+		<!-- <link rel="manifest" href="/messenger/static/manifest.json"> -->
+		<!-- <script src="/messenger/static/js/sw.js"></script> -->
+
+</head>
+  <body style="overflow: hidden;">
+	<script>
+		function userName() {
+			return "{{userName}}"
+		} function getWorkSpaceName() {
+			return "{{workSpaceName}}"
+		}
+		setTimeout(function () { retrieveOlderMessage(); }, 2000);
+	</script>
+	<style>
+		.drops:hover{background-color:#6d7fcc;color: wheat;}
+		.message-profile-pic{height:50px;width:50px;background-color:#03076d;color:#fff;overflow:hidden;}
+		.message-profile-pic-text{visibility: hidden;}
+		.message-profile-pic-text::first-letter{font-size: xx-large;text-transform: uppercase;visibility: visible !important;}
+		.User-profile-pic-text{visibility: hidden;}
+		.User-profile-pic-text::first-letter{font-size:15px;text-transform: uppercase;visibility: visible !important;color: #fff;}
+	</style>
+		<div class="screen d-flex flex-column bd-highlight">
+			<nav style="background-color: #03076d;" class="navbar navbar-expand-lg navbar-dark p-2 bd-highlight">
+				<div style="width: 100%;" class="d-flex">
+					<!-- <button type="button" style="height:5px;" id="sidebarCollapse" class="btn btn-primary p-1"> -->
+						<i class="fa fa-bars" type="button" id="sidebarCollapse" style="font-size: 25px;"></i>
+						<!-- <span class="sr-only">Toggle Menu</span> -->
+					<!-- </button> -->
+					<a class="mr-auto text-white font-weight-bold logo title">ChatApp</a>
+					<div style="width: 350px;" class="search_bar mb-0">
+						<form>
+							<div class="form-group p-0 m-0 mt-1">
+								<input type="text" style="height: 20px !important;" class="form-control" placeholder="Search Something!.">
+							</div>
+						</form>
+					</div>
+					<div class="d-flex ml-auto">
+						<div class="drop-left">
+							<a class="mt-2 mr-2" id="NotificationsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="fa fa-bell text-white" style="font-size: 22px;" onclick="" data-toggle="tooltip" title="Notifications"></span>
+							</a>
+							<!-- <div class="dropdown-menu" style="Left:85% !important;" aria-labelledby="NotificationsDropDown">
+								<a class="dropdown-item drops" href="#">Notified!!</a>
+								<a class="dropdown-item drops" href="#">Notified!!</a>
+								<a class="dropdown-item drops" href="#">Notified!!</a>
+							  </div> -->
+						</div>
+						<div class="drop-left">
+							<a class="mt-2" id="AccountDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<!-- <img class="rounded message-profile-pic" src="/messenger/static/profile_pic.png" alt="Profile_Pic" style="width:25px;height:25px;background-color:rgb(255, 255, 255);" onclick="" data-toggle="tooltip" title="Notifications"> -->
+								<div class="rounded border" style="width:25px;height:25px;" ><p class="User-profile-pic-text">{{userName}}</p></div>
+							</a>
+							<div class="user-dropdown dropdown-menu" style="left: 86%;" aria-labelledby="AccountDropDown">
+								<a class="dropdown-item drops" href="/messenger/mainPage"><span class="fa fa-user m-1"></span>: {{userName}}</a>
+								<a class="dropdown-item drops" href="/messenger/logout">Sign Out</a>
+							  </div>
+						</div>
+					</div>
+				</div>
+			</nav>
+	<div class="d-flex align-items-stretch p-0 bd-highlight">		
+			<nav class="SideNav LightScroll-3" id="sidebar">
+				<style>
+					.SideNav{min-height: 650px;overflow:scroll;}
+					@media only screen and (min-width: 1200px) {
+						.custom-menu {display: none !important;}
+					}
+				</style>
+				<!-- <div class="custom-menu" style="z-index: 99;">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          		<i class="fa fa-bars"></i>
+	          		<span class="sr-only">Toggle Menu</span>
+	        		</button>
+        		</div> -->
+			<div class="p-4">
+		  		<h1><a class="logo text-capitalize">{{workSpaceName}}
+					</a>
+					<div>
+						<a class="" href="#" style="font-size: 14px;color: #44bef1;display: block;" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Switch WorkPlace
+						  </a>
+						
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<form id="switchWorkPlace" action="/messenger/switchWorkPlace" method="POST">
+								{% for space in workspaces %}
+									<button class="dropdown-item drops" name="workSpaceName" type="submit" value="{{ space }}" >{{ space }}</button>
+								{% endfor %}
+							</form>
+						</div>
+					</div>
+				</h1>
+				<ul class="list-unstyled components mb-5">
+					<style>
+						.LightScroll-3::-webkit-scrollbar{width: 3px;height: 2px;background-color: rgb(255, 255, 255);}
+						.LightScroll-3::-webkit-scrollbar-thumb {background: #000;}
+						.LightScroll::-webkit-scrollbar{width: 1px;height: 5px;background-color: rgb(255, 255, 255);}
+						.LightScroll::-webkit-scrollbar-thumb {background: #000;}	
+						.SideList > li{margin-left: 25px;padding: 5px;}
+						.SideList > li:hover{background-color:#b7c2f0;}
+						.AddGroup:hover{background-color: #b7c2f0;}
+						#Message:hover{background-color:#e6e7ff;}
+					</style>
+					<!-- GROUP PILLS -->
+					<li>
+						<a data-toggle="collapse" href="#PrivateListCollapse" role="button" aria-expanded="false" aria-controls="PrivateListCollapse"><span class="fa fa-group mr-3"></span>Group Message
+							<button class="btn float-right" type="button" data-toggle="modal" data-target="#CreateGroupModal" >
+								<span class="fa fa-plus float-right AddGroup" data-toggle="tooltip" title="Create Group"></span>
+							</button>
+						</a>
+					</li>
+					<div class="collapse" id="PrivateListCollapse">
+						<ul class="list-unstyled SideList LightScroll overflow-auto" style="min-height:auto;max-height: 200px;">
+							{% for group in groupmembers %}
+								<li onclick="switchTab('#{{group[0]}}')">{{group[0]}}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- END GROUP PILLS -->
+					
+					<!-- Private PILLS -->
+					<li>
+						<a data-toggle="collapse" href="#GroupListCollapse" role="button" aria-expanded="false" aria-controls="GroupListCollapse"><span class="fa fa-user mr-3"></span>Private Message</a>
+					</li>
+					<div class="collapse" id="GroupListCollapse">
+						<ul class="list-unstyled SideList LightScroll overflow-auto" style="min-height:auto;max-height: 200px;">
+							{% for user in Users %}
+                        		{% if user != userName %}
+									<li onclick="switchTab('#{{user}}')">{{user}} <span id="{{user}}-status" style="background-color: #fff;" class="fa fa-fire float-right mt-2 rounded"></span></li>
+								{% else %}
+									<li onclick="switchTab('#{{user}}')">You <span id="{{user}}-status" style="background-color: #fff;" class="fa fa-fire float-right text-success mt-2 rounded-lg"></span></li>
+								{% endif %}
+                        	{% endfor %}
+						</ul>
+					</div>
+					<!-- END Private PILLS -->
+					<li>
+						<a href="/messenger/createWorkSpace"><span class="fa fa-signing mr-3"></span>Create WorkSpace</a>
+					</li>
+					<li>
+						<a href="#" type="button" data-toggle="modal" data-target="#AddFriendsModal"><span class="fa fa-user-plus mr-3"></span>Add Friends</a>
+					</li>	
+					<li>
+						<a href="#"><span class="fa fa-question mr-3"></span>FAQ</a>
+					</li>
+					<li>
+						<a href="#"><span class="fa fa-phone mr-3"></span>Contact</a>
+					</li>
+				</ul>
+	      	</div>
+		</nav>
+				<!-- Page Content  -->
+			<div id="content" class="p-0 p-md-0 pt-0">
+				<div id="Tab_Content" class="tab-content" style="background-color:#fff;">
+					<!-- Contents `Multiply with Users` -->
+					{% for group in groupmembers %}
+					<div class="tab-pane" id="{{group[0]}}" style="height: 100% !important;background-color: whitesmoke;" role="tabpanel" aria-labelledby="home-tab">
+						<div class="p-2 p-md-2 pt-2" style="height:15%;">
+							<div class="ml-4 p-0" style="display: inline-block;">
+    							<span class="font-weight-bolder">{{group[0]}}</span><br>
+								<small class="text-muted">#Group Description</small>
+							</div>
+							<button class="btn  float-right" type="button" data-toggle="modal" data-target="#{{group[0]}}-AddUserModal" data-toggle="tooltip" data-placement="left" title="Add User">
+								<span class="fa fa-user-plus mr-1 text-black" style="font-size: 40px;"></span>
+							</button>
+							<hr>
+						</div>
+						<div id="{{group[0]}}-Main" class="userchat_tab LightScroll" style="width: 100%; height:410px; overflow-y:scroll;">
+						<div class="user_chat p-1" style="max-height: 100%;width: 100%;">
+							<div id="{{group[0]}}-Message" style="max-height: 85%;">
+							</div>
+						</div>
+					</div>
+					</div>	
+					{% endfor %}
+					<!-- End Contents -->
+					<!-- User Tab -->
+					{% for user in Users %}
+					{% if user != userName %}
+					<div class="tab-pane" id="{{user}}" style="height: 100% !important;background-color: whitesmoke;" role="tabpanel" aria-labelledby="home-tab">
+						<div class="p-2 p-md-2 pt-2" style="height:15%;">
+							<div class="ml-4 p-0" style="display: inline-block;">
+    							<span class="font-weight-bolder">{{user}}</span><br>
+								<small class="text-muted">#Status</small>
+							</div>
+							<button class="btn  float-right" type="button" data-toggle="modal" data-target="##UserInfoModal" data-toggle="tooltip" data-placement="left" title="User Info">
+								<span class="fa fa-info-circle	 mr-1 text-black" style="font-size: 40px;"></span>
+							</button>
+							<hr>
+						</div>
+						<div id="{{user}}-Main" class="userchat_tab LightScroll" style="width: 100%; height:410px; overflow-y:scroll;">
+						<div class="user_chat p-1" style="max-height: 100%;width: 100%;">
+							<div id="{{user}}-Message" style="max-height: 85%;">
+							</div>
+						</div>
+					</div>
+					</div>
+					{% else %}
+					<div class="tab-pane active" id="{{user}}" style="height: 100% !important;background-color: whitesmoke;" role="tabpanel" aria-labelledby="home-tab">
+						<div class="p-2 p-md-2 pt-2" style="height:15%;">
+							<div class="ml-4 p-0" style="display: inline-block;">
+    							<span class="font-weight-bolder">{{user}}</span><br>
+								<small class="text-muted">#Status</small>
+							</div>
+							<button class="btn  float-right" type="button" data-toggle="modal" data-target="##UserInfoModal" data-toggle="tooltip" data-placement="left" title="User Info">
+								<span class="fa fa-info-circle	 mr-1 text-black" style="font-size: 40px;"></span>
+							</button>
+							<hr>
+						</div>
+						<div id="{{user}}-Main" class="userchat_tab LightScroll" style="width: 100%; height:410px; overflow-y:scroll;">
+						<div class="user_chat p-1" style="max-height: 100%;width: 100%;">
+							<div id="{{user}}-Message" style="max-height: 85%;">
+							</div>
+						</div>
+					</div>
+					</div>
+					{% endif %}
+					{% endfor %}
+					<!-- End User Tab -->
+				</div>
+				<div class="text-box p-2">
+					<form>
+						<div class="form-group border rounded shadow">
+							<input id="MessageBox" autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Write Something Interesting!.">
+							<div id="buttons" class="d-flex p-2">
+								<div id="Primary_Buttons" class="d-flex">
+									<button type="button" class="btn btn-light" data-toggle="button tooltip" data-placement="top" title="Bold" aria-pressed="false" onclick='$("#MessageBox").toggleClass("font-weight-bold")'>
+										<span class="fa fa-bold text-black"></span>
+									</button>
+									<button type="button" class="btn btn-light" data-toggle="button tooltip" data-placement="top" title="Italic" aria-pressed="false" onclick='$("#MessageBox").toggleClass("font-italic")'>
+										<span class="fa fa-italic text-black"></span>
+									</button>
+									<button type="button" class="btn btn-light" data-toggle="button tooltip" data-placement="top" title="UpperCase" aria-pressed="false" onclick='$("#MessageBox").toggleClass("text-uppercase")'>U</button>
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#TextLinkModal" data-placement="top" title="Send File" onclick=''>
+										<span class="fa fa-link text-black"></span>
+									</button>
+									<!-- emoji -->
+									<!-- <div class="btn-group dropup">
+										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											&#128512;
+										</button>
+										<div style="width: 200px;height:200px;" class="dropdown-menu">
+											
+										</div>
+									  </div> -->
+								</div>
+								<div id="Secondary_Buttons" class="d-flex ml-auto">
+									<button type="button" class="btn btn-light" data-toggle="modal" data-target="#FileModal" data-placement="top" title="Send File" onclick=''>
+										<span class="fa fa-file text-black"></span>
+									</button>
+									<button type="button" class="btn btn-light ml-auto" data-toggle="tooltip" data-placement="top" title="Send Message" onclick='do_post()'>
+										<span class="fa fa-send text-black"></span>
+									</button>
+								</div>
+							</div>
+						  </div>
+					</form>
+				</div>
+			</div>
+	</div>
+		</div>
+
+<!-- -------------------------------------------------------MODAL------------------------------------- -->
+
+{% for group in groupmembers %}
+<div class="modal fade" id="{{group[0]}}-AddUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+	  <div class="modal-content h-75 w-100 rounded-lg">
+		<div class="p-3">
+		  	<h5 class="d-inline-flex font-weight-bolder">Group Members <span class="fa fa-group text-black ml-2 mt-2"></span> </h5>
+			<button type="button" class="close float-right d-inline-flex" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<form class="shadow-sm">
+				<div class="form-group border p-0">
+				  <input type="text" class="form-control" placeholder="Search Your Friend!">
+				</div>
+			</form>
+		</div>
+		<div class="modal-body p-1">
+			{% for member in workSpaceMembers%}
+			{% if member in group[1] %}
+			<div class="d-flex p-2 m-1" style="height:50px;background-color:blanchedalmond">
+				<div style="height:40px;width:40px;background-color:black;"></div>
+				<p id="{{member}}-data" class="text-capitalize ml-3 mt-1 font-weight-bold">{{ member }}
+				</p>
+				<small class="ml-2 mt-1 text-success">online</small>
+				<button type="button" class="btn btn-danger btn-sm ml-auto">Remove</button>
+			</div>
+			{% else %}
+			<div class="d-flex p-2 m-1" style="height:50px;background-color:rgb(251, 227, 191)">
+				<div style="height:40px;width:40px;background-color:black;"></div>
+				<p id="{{member}}-data" class="text-capitalize ml-3 mt-1 font-weight-bold">{{ member }}
+				</p>
+				<small class="ml-2 mt-1 text-danger">Offline</small>
+				<button type="button" class="btn btn-success btn-sm ml-auto" onclick="addUserFromModal('{{ userName }}','{{ member }}')">Add</button>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+	  </div>
+	</div>
+  </div>
+  {% endfor %}
+  <!-- UserInfo Modal -->
+  <div class="modal fade" id="UserInfoModal" tabindex="-1" aria-labelledby="UserInfoModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+	  <div class="modal-content h-75 w-100 rounded-lg">
+		<div class="modal-body p-0">
+		<div class="d-block rounded" style="width:100%;height:200px;background-color: black;position: relative;">
+			<img class="rounded message-profile-pic d-block" style="position:absolute;width:125px;height:125px;bottom:0px;left:170px;" src="/messenger/static/profile_pic.png" alt="Profile_Pic">
+		</div>
+			<h1 class="font-family:fantacy !important;">
+				{{ userName }}
+			</h1>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- End User Info Modal -->
+
+  <!-- Add Friends Modal -->
+  <div class="modal fade" id="AddFriendsModal" tabindex="-1" aria-labelledby="AddFriendsModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content h-25 w-75 rounded-lg">
+		<div>
+			<h5 class="text-center" style="background-color:#5c60d4;font-family: cursive;">Add Your Buddy to WorkPlace!</h5>
+		</div>
+		<div class="modal-body p-1">
+			<form id="AddFriendsModalForm" class="text-center">
+				<p style="font-family: cursive;">Enter Username or Email I'D</p>
+				<div class="form-group shadow">
+				  <input type="email" class="form-control" autocomplete="off" id="AddFriendsModalInput" placeholder="Enter Username or Email I'D">
+				</div>
+				<button class="btn btn-success" type="button" onclick="AddFriendsModal()">Add</button>
+			  </form>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- End Add Friends Modal -->
+
+  <!-- CreateGroupModal -->
+  <div class="modal fade" id="CreateGroupModal" tabindex="-1" aria-labelledby="AddFriendsModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content h-25 w-75 rounded-lg">
+		<div>
+			<h5 class="text-center" style="background-color:#5c60d4;font-family: cursive;">Create Group</h5>
+		</div>
+		<div class="modal-body p-1">
+			<form id="CreateGroupModalForm" class="text-center">
+				<p style="font-family: cursive;">Enter Your Group Name</p>
+				<div class="form-group shadow">
+				  <input type="text" class="form-control" autocomplete="off" onkeypress="avoidSpace()" id="groupName" placeholder="Enter the Group Name!">
+				  <input type="hidden" id="groupDescription" name="groupDescription" value="None">
+				</div>
+				<button class="btn btn-success" type="submit" onclick="createGroup()">Create Group</button>
+			  </form>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- End CreateGroupModal -->
+
+  <!-- FileModal -->
+  <div class="modal fade" id="FileModal" tabindex="-1" aria-labelledby="AddFriendsModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content h-25 w-75 rounded-lg">
+		<div>
+			<h5 class="text-center" style="background-color:#5c60d4;font-family: cursive;">Send File to Your Buddy</h5>
+		</div>
+		<div class="modal-body p-1">
+			<!-- <form id="fileUpload" class="text-center" action="/messenger/fileUpload" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+				<p style="font-family: cursive;">Browse Computer</p>
+				<div class="form-group shadow">
+				  <input id="file" name="file" type="file" class="form-control" autocomplete="off" id="formGroupExampleInput" placeholder="Browse a file" value=""/>
+				</div>
+				<button class="btn btn-success" type="button" onclick="sendfile()">Send</button>
+			  </form> -->
+			  <form id="upload_form" enctype="multipart/form-data" method="post">
+				<input type="file" name="file1" id="file1" onchange="uploadFile()"><br>
+				<progress id="progressBar" value="0" max="100" style="width:100%;"></progress>
+				<h3 id="status"></h3>
+				<p id="loaded_n_total"></p>
+			  </form>
+
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- EndFileModal -->
+
+  <!-- UrlLinkModal -->
+  <div class="modal fade" id="TextLinkModal" tabindex="-1" aria-labelledby="TextLinkModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content h-25 w-75 rounded-lg">
+		<div>
+			<h5 class="text-center" style="background-color:#5c60d4;font-family: cursive;">Text-Link!!!</h5>
+		</div>
+		<div class="modal-body p-1">
+			<!-- <small class="ml-2">Display Text :</small>
+			<input id="moda_text" name="text" type="text" autocomplete="off" placeholder="Display Text" value=""/><br>
+			 -->
+			<small class="ml-2">Url Link :</small>
+			<input id="modal_link" name="link" type="text" autocomplete="off" placeholder="Url Link" value=""/><br>
+
+			<button class="btn btn-success float-right" type="button" onclick="Url_Link()">Send</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <!-- End UrlLinkModal -->
+
+  <!-- --------------------------------------------End Modal----------------------------------------- -->
+	<!-- <script src="/messenger/static/js/new_page_jquery.min.js"></script> -->
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script src="/messenger/static/js/popper.js"></script>
+    <script src="/messenger/static/js/bootstrap.min.js"></script>
+	<script src="/messenger/static/js/main.js"></script>
+	<script src="/messenger/static/js/MainSocket.js"></script>
+	<script src="/messenger/static/js/common.js"></script>
+	<script src="/messenger/static/js/modal_content.js"></script>
+	<script src="/messenger/static/js/socket_onMessage.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
+	<script>
+		Push.Permission.request();
+		function notify(title,message) {
+				Push.create(title, {
+					body: message,
+					icon: '/messenger/static/chatIcon.png',
+					timeout: 8000,                  // Timeout before notification closes automatically.
+					vibrate: [100, 100, 100],       // An array of vibration pulses for mobile devices.  
+				});
+			};
+	</script>
+
+	
+  </body>
+</html>

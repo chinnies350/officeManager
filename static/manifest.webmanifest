@@ -1,0 +1,15 @@
+{
+  "background_color": "#fff",
+  "description": "An WorkSpace for All of your Meetings!",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "/messenger/static/chatIcon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "name": "ChatApp",
+  "short_name": "ChatApp",
+  "start_url": "/messenger/mainPage"
+}

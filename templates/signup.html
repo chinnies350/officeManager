@@ -1,0 +1,144 @@
+<html>
+<title>Office Messenger</title>
+<head>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/messenger/static/css/signup.css">
+  <link rel="icon" href="/messenger/static/chatIcon.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+</head>  
+<body>
+  <div class="main">
+    <!-- Nav Bar -->
+  <nav style="background-color:#1121824d;" class="navbar navbar-expand-lg">
+    <div class>
+      <img src="/messenger/static/chatIcon.png" width="60" height="60" alt="" loading="lazy">
+    <a class="navbar-brand" style="font-weight:bold;font-size:30px;color: white;" href="#">ChatApp</a>
+    </div>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+  
+    <div class="ml-auto">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" style="color:white;font-size: 20px;font-weight: 600;background-color: #ff7c4a;padding: 10px;" href="/messenger/login">SignIn <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Nav Bar -->
+
+    <div class="container">
+      <center>
+        <div class="middle">
+          <div id="login">
+
+            <form  action="/messenger/signup" method="POST">
+              <!-- -->
+              <fieldset class="clearfix">
+                <h1 style="color:white;padding:10px">Sign Up</h1>
+                <!--email verication area start  -->
+                <!-- <p><span style="width:50%; text-align:center;  display: inline-block;"><button type="button"
+                      value="Verify email" id=" ">verify Email</button></p> -->
+                <!-- onclick="verifyEmail()" -->
+                <!--email verication area end  -->
+                <p  class="d-none"><input type="text" name="link" id="link"></p>
+                <p>
+                  <small id="emailHelp" class="form-text text-white">Spaces Not accepted!</small>
+                  <span class="fa fa-user"></span><input name="username" type="text" Placeholder="Username" required
+                    autocomplete="off" id="userName">
+                  </p>
+        
+                <p><span class="fa fa-lock"></span><input name="password" type="password" Placeholder="Password"
+                    required id="password"></p>
+                <p><span class="fa fa-envelope"></span><input name="emailId" type="email" id="emailId"
+                    Placeholder="Email Id" required autocomplete="off" style="width:200px;padding-left: 10px;"></p>
+
+
+                <div>
+                  <script>
+                  $(function() {
+                    $('#userName').on('keypress', function(e) {
+                        if (e.which == 32)
+                            return false;
+                    });
+                });
+              </script>
+                  <!-- <a style="color:white;width:50%;margin-right: 40px;" href="/">Sign
+                    In</a> -->
+                  <span><input type="submit" value="Sign UP"></span>
+                </div>
+              </fieldset>
+
+
+              <div class="clearfix"></div>
+            </form>
+
+            <div class="clearfix"></div>
+
+          </div>
+
+          <div class="logo">ChatApp
+
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+
+      </center>
+      <br>
+
+      <center><b style="color:white;font-weight: normal;">* Please Sign Up Your Account from Here *</b><br>
+        <h6 style="color: red;">{{ errno }}</h6>
+      </center>
+    </div>
+
+  </div>
+</body>
+    
+    <script>
+        
+  let groupLink = false;
+function getGroupLink(name="with"){
+    url = window.location.href
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+groupLink = getGroupLink()
+console.log(groupLink)
+if(groupLink){
+  document.getElementById("link").value = groupLink;
+}
+
+$("#onSignUp").click(function(e){
+  e.preventDefault();
+  const body = {
+    "userName" : $("#userName").val(),
+     "password" :$("#password").val(),
+    "emailId" : $("#emailId").val(),
+     "groupLink" : groupLink
+  }
+  console.log(body)
+  $.post("/signup", body, function(data){
+    console.log(data)
+    $('html').html(data);
+  })
+  // .then((data)=>{
+  //   alert(data)
+  // }).catch(err =>{
+  //   console.log(err)
+  // })
+  return false
+})
+    </script>
+</html>

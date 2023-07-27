@@ -1,0 +1,30 @@
+7.conversation date - p
+6.Search option
+
+workspace design issues
+sender receiver diffrence
+refresh online offline.
+
+
+	
+
+
+
+__today___
+12.if we send links its taking as a text not as link - solved
+8.message-time - solved
+9.user profile - solved
+11.send files-if we click submit, chat is closed -- solved
+14.browse team button - not working properly - solved	
+15.unused symbols are there in typing area. example question mark -solved
+13.message received notification is not there - completed (Required of ssl certificate only works on localhost)
+10.no restrictions in mail id for signup - completed
+5.online status - solved
+
+
+1.File sharing- file is not downloaded -- solved
+2.Animated emojis not working -- issue , solved
+3.Design - message box padding is different for text and files. --issue, solved
+4.profile picture-user
+
+

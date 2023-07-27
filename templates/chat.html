@@ -1,0 +1,135 @@
+<html>
+    <head>
+        <!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+
+    </head>
+    <body>
+        <div class="jumbotron" >
+            <h1 class="text-center">WS-Chat</h1>
+        </div>
+        <br>
+        <h6><span class="badge badge-danger">UserList:-</span></h6>
+        {% for user in Users %}
+        <span class="badge badge-primary">| {{ user }} |</span>
+        {% endfor %}
+        <hr>
+        <div style="width: 100%;">
+            <div class="row" style="width: 80%;float:left; background-color:bisque; ">
+                <div class="col-3">
+                  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      {% for user in Users %}
+
+                        <a class="nav-link" id="v-pills-{{user}}" data-toggle="pill" href="#{{user}}" role="tab" aria-controls="{{user}}" aria-selected="true">{{user}}</a>
+                      {% endfor %}
+                    </div>
+                </div>
+                <div class="col-9">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="HOME-tab" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <h1>Welcome to WS-Chat</h1>
+                        <p>Click on any user to Continue with the chat...</p>
+                    </div>
+                    {% for user in Users %}
+                        <div class="tab-pane fade" id="{{user}}" role="tabpanel" aria-labelledby="{{user}}">
+ 
+                        </div>
+                        
+                    {% endfor %}
+                    <div style="position: absolute;bottom:4;">
+                        <input id="user" type="hidden" value= $('.tab-content .active').attr('id'); >
+                        <input id="message-field" type="text"> <button onclick="do_post()">&gt;</button>
+                    </div>
+                    
+                    
+                    
+                  </div>
+                </div>
+            </div>
+              <div style="width: 20%; height:350px; background-color:#ccc;float:right;overflow:scroll;" id="chat-container">
+                <h5 class="sticky-top"><span class="badge badge-danger">LOG:-</span></h5>      
+                </div>
+        </div>
+            
+        
+        <!-- -------------------------------------Script file------------------------------------------------------- -->
+        <!-- WebSocket & Message Append Code -->
+        <script type="text/javascript">
+            'use strict';
+            var ws_url = `ws://${window.location.hostname}:${window.location.port}${window.location.pathname}ws/`;
+            var from = window.location.pathname.replace(/\//g,"")
+            console.log(from)
+
+            var socket = new WebSocket(ws_url);
+            socket.onmessage = function (event) {
+                
+                var element = document.createElement('div');
+                var chtmsg = event.data
+                var resSplit = chtmsg.split("@");
+                var text = document.createTextNode(resSplit[2]);
+                
+                console.log(text)
+                
+                console.log(resSplit[2])
+                //if( typeof event.data === String ) {
+                  //  var jsonObject = JSON.parse(event.data);
+                    //var fromUser = jsonObject.from;
+                    //var toUser = jsonObject.User;
+                    //var message = jsonObject.Message;
+                    //console.log("done") 
+                //}
+                element.appendChild(text);
+                element.setAttribute('style', 'color:black;');
+                if (resSplit[0] === resSplit[1]){
+                    var container = document.getElementById(resSplit[0]);
+                    container.appendChild(element);    
+                }
+                else{
+                    var container = document.getElementById(resSplit[0]);
+                    container.appendChild(element);
+                }
+                
+            }
+            socket.onclose = function (event) {
+                var element = document.createElement('div');
+                var text = document.createTextNode('Websocket closed. Please reload.');
+                element.appendChild(text);
+                element.setAttribute('style', 'color:red;');
+                container.appendChild(element);
+            }
+
+            function do_post() {
+                var message_field_elem = document.getElementById("message-field");
+                //var user = document.getElementById("user");
+                var user = $('.tab-content .active').attr('id');
+                console.log(user)
+                var data = [user, message_field_elem.value, from]
+             //   $(".tab-pane").each(function(){
+            //     var id = $(this).attr("id");
+                    // work with id
+             
+                    // to modify it
+             //       $(this).attr("id",newval)      
+             
+            //    })
+//                var mes = '<p style="float:right">'+message_field_elem.value+'</p><br>' 
+                var mes = message_field_elem.value   
+                var us = user;
+                console.log(mes)
+                console.log(us)
+                socket.send(data);
+                console.log(mes)                   //"beast"
+                $( "#"+us ).append( mes );
+                document.getElementById('message-field').value = ''; 
+            }
+
+        </script>
+        <!-- -------------------------------------Script file------------------------------------------------------- -->
+        
+        
+        <!-- jQuery and JS bundle w/ Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha38 4-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    </body>
+</html>

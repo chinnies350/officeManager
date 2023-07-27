@@ -1,0 +1,38 @@
+TODO:
+------
+Improve session with security wise with mongo_session {session Middleware}
+Account Recovery
+track each User LoggedOn sessions with based on systemIp
+track active users based on ip 
+videocall
+make session log.
+Online status
+Search options
+profile picture-user
+online status
+Search option
+conversation date
+if we send links its taking as a text not as link
+
+
+
+Completed
+-----------
+forgot password
+spacing Issue
+improve frontend works.
+improve js script
+make EmailID as common 1 account for 1 email
+make username and account name diffrent
+Message Notifications
+Token Error
+profile Picture
+design
+Design - message box padding is different for text and files.
+message-time
+user profile
+no restrictions in mail id for signup
+send files-if we click submit, chat is closed
+message received notification is not there 
+browse team button - not working properly
+unused symbols are there in typing area. example question mark?

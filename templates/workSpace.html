@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Office Messenger</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+  <!-- jQuery and JS bundle w/ Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/messenger/static/css/workSpace.css">
+  <link rel="icon" href="/messenger/static/chatIcon.png">
+
+</head>
+
+<body>
+
+  <div class="main">
+    <!-- Nav Bar -->
+  <nav style="background-color:#1121824d;" class="navbar navbar-expand-lg">
+    <div class>
+      <img src="/messenger/static/chatIcon.png" width="60" height="60" alt="" loading="lazy">
+    <a class="navbar-brand" style="font-weight:bold;font-size:30px;color: white;" href="#">ChatApp</a>
+    </div>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+  
+    <div class="ml-auto">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" style="color:white;font-size: 20px;font-weight: 600;background-color: #ff7c4a;padding: 10px;" href="/messenger/login">SignIn <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Nav Bar -->
+    
+    <!-- <header class="d-flex justify-content-end">
+      <div class="username">{{userName}}</div>
+    </header> -->
+
+    <div class="container">
+      <div class="d-flex justify-content-center h2 " style="color:#f57c00;background-color: white;">{{ errno }}</div>
+      
+      <center>  
+
+        <div class="middle">
+          <div id="login">
+
+            <form action="/messenger/" method="POST">
+
+              <fieldset class="clearfix">
+                <h4 style="color:white;padding:5px;width: 300px;">Let’s find your team</h1>
+                <p><input type="text" name="workspace" Placeholder="Enter the workSpace link" required
+                    autocomplete="off" id="workspace" style="width:300px;border-radius: 5px;margin-left: 0px;">
+                </p>
+
+                <div>
+                  <!-- style="width:48%; text-align:left;  display: inline-block;" -->
+                  <!-- <a style="color:white;width:50%;margin-right: 40px;" href="/signup">Sign Up</a> -->
+
+                  <span style="width:100%; text-align:center; margin-left:25px"><input type="submit"
+                      value="Continue With Workspace"></span><br>
+                  <p style="color:white;text-align:center; margin-left: 40px;padding-top: 5px">---- or
+                    ----</p>
+                  <a class="createWorkSpacebtn" href="/messenger/createWorkSpace">Create Workspace</a>
+                  <!-- <p style="color:white;text-align:center; margin-left: 40px;padding-top: 5px">---- or
+                    ----</p>
+                  <a class="createWorkSpacebtn" href="/signup">Sign Up</a> -->
+                </div>  
+
+              </fieldset>
+              <div class="clearfix"></div>
+            </form>
+
+            <div class="clearfix"></div>
+
+          </div>
+
+          <div class="logo">ChatApp
+
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+
+      </center>
+      <br>
+
+      <!-- <center> -->
+        <!-- <b style="color:white;font-weight: normal;">* Please login Your Account from Here *</b><br> -->
+        <!-- <h6 style="color: red;">{{ errno }}</h6> -->
+      <!-- </center> -->
+    </div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+@media only screen and (min-width: 1200px) {
+    .tab-content {height:475px !important;width:1095px !important;overflow:hidden;}
+    #sidebarCollapse{display:none}
+    .userchat_tab{height:480px !important;}
+}
+
+@media only screen and (max-width: 411px) {
+    #content{width:411px !important;}
+    .tab-content {height:580px !important;}
+    .screen{height:731px !important;overflow:hidden;}
+    .userchat_tab{height:485px !important;}
+    .search_bar{display:none;}
+    .title{margin:0 auto;}
+    .user-dropdown{Left: 55% !important;}
+    .SideNav{height:731px !important;}
+}
+
+@media only screen and (width: 360px) {
+    #content{width:411px !important;}
+    .tab-content {height:480px !important;}
+    .screen{height:731px !important;overflow:hidden;}
+    .userchat_tab{height:400px !important;}
+    .search_bar{display:none;}
+    .title{margin:0 auto;}
+    .user-dropdown{Left: 55% !important;}
+    .SideNav{height:640px !important;}
+}
+
+@media screen and (height: 823px) {
+        #content{width:823px !important;}
+        .tab-content {height:670px !important;}
+        .screen{height:823px !important;overflow:hidden;}
+        .userchat_tab{height:580px !important;}
+        .search_bar{display:none;}
+        .title{margin:0 auto;}
+        .user-dropdown{Left: 55% !important;}
+        .SideNav{height:823px !important;}  
+}
+
+@media screen and (width: 320px), 
+       screen and (height: 568px) {
+        #content{width:411px !important;}
+        .tab-content {height:410px !important;}
+        .screen{height:731px !important;}
+        .userchat_tab{height:350px !important;}
+        .search_bar{display:none;}
+        .title{margin:0 auto;}
+        .user-dropdown{Left: 45% !important;}
+        .SideNav{height:560px !important;}
+}
+
+@media screen and (width: 320px), 
+       screen and (height: 568px) {
+        #content{width:411px !important;}
+        .tab-content {height:410px !important;}
+        .screen{height:731px !important;overflow:hidden;}
+        .userchat_tab{height:350px !important;}
+        .search_bar{display:none;}
+        .title{margin:0 auto;}
+        .user-dropdown{Left: 45% !important;}
+        .SideNav{height:731px !important;}
+}
+
+@media screen and (width: 375px), 
+       screen and (height: 667px) {
+        #content{width:411px !important;}
+        .tab-content {height:510px !important;}
+        .screen{height:667px !important;overflow:hidden;}
+        .userchat_tab{height:440px !important;}
+        .search_bar{display:none;}
+        .title{margin:0 auto;}
+        .user-dropdown{Left: 55% !important;}
+        .SideNav{height:667px !important;}
+}
+
+@media screen and (width: 414px), 
+       screen and (height: 736px) {
+        #content{width:411px !important;}
+        .tab-content {height:580px !important;}
+        .screen{height:736px !important;overflow:hidden;}
+        .userchat_tab{height:480px !important;}
+        .search_bar{display:none;}
+        .title{margin:0 auto;}
+        .user-dropdown{Left: 55% !important;}
+        .SideNav{height:736px !important;}
+}
+
+@media screen and (height: 812px) {
+        #content{width:411px !important;}
+        .tab-content {height:650px !important;}
+        .screen{height:812px !important;overflow:hidden;}
+        .userchat_tab{height:550px !important;}
+        .search_bar{display:none;}
+        .title{margin:0 auto;}
+        .user-dropdown{Left: 55% !important;}
+        .SideNav{height:812px !important;}
+}
+
+@media screen and (width: 768px), 
+       screen and (height: 1024px) {
+        #content{width:800px !important;width:768px !important;}
+        .tab-content {height:850px !important;}
+        .screen{height:1024px !important;overflow:hidden;}
+        .userchat_tab{height:700px !important;}
+        /* #sidebarCollapse{display:none} */
+        .user-dropdown{Left: 55% !important;}
+        .SideNav{height:1024px !important;}
+        .title{margin-left:10px;}
+}

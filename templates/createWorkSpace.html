@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Create WorkSpace</title>
+        <script src="/messenger/static/js/lottie-player.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/messenger/static/css/new_page_style.css">
+    <link rel="icon" href="/messenger/static/chatIcon.png">
+    </head>
+    <body style="overflow: hidden;background-color: #fff;">
+        <style>
+            .lotte_custom{
+                width: 650px;
+                height: 500px;
+                margin: 0px !important;
+                padding: 0px !important;
+            }
+            .heading{
+                font-family:Fantasy;
+                letter-spacing: 3px;
+                background-color: #fff;
+            }
+            .createWorkspaceForm{
+                background-color: aliceblue;width:475px;height:400px;margin: 0 auto;
+            }
+            .drops:hover{background-color:#6d7fcc;color: wheat;}
+            .User-profile-pic-text{visibility: hidden;}
+		.User-profile-pic-text::first-letter{font-size:15px;text-transform: uppercase;visibility: visible !important;color: #fff;}
+        </style>
+        
+        <nav style="background-color: #03076d !important;" class="navbar navbar-expand-lg navbar-dark p-2 bd-highlight">
+            <div style="width: 100%;" class="d-flex">
+                <a class="mr-auto text-white font-weight-bold logo" href="/messenger/mainPage">ChatApp</a>
+                <div style="width: 350px;" class="mb-0">
+                    <form>
+                        <div class="form-group p-0 m-0 mt-1">
+                            <input type="text" style="height: 20px !important;" class="form-control" placeholder="Search Something!.">
+                        </div>
+                    </form>
+                </div>
+                <div class="d-flex ml-auto">
+                    <div class="drop-left">
+                        <a class="mt-2 mr-2" id="NotificationsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="fa fa-bell text-white" style="font-size: 22px;" onclick="" data-toggle="tooltip" title="Notifications"></span>
+                        </a>
+                        <!-- <div class="dropdown-menu" style="Left:80% !important;" aria-labelledby="NotificationsDropDown">
+                            <a class="dropdown-item drops" href="#">Action</a>
+                            <a class="dropdown-item drops" href="#">Another action</a>
+                            <a class="dropdown-item drops" href="#">Something else here</a>
+                          </div> -->
+                    </div>
+                    <div class="drop-left">
+                      <a class="mt-2" id="AccountDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <!-- <img class="rounded message-profile-pic" src="/messenger/static/profile_pic.png" alt="Profile_Pic" style="width:25px;height:25px;background-color:rgb(255, 255, 255);" onclick="" data-toggle="tooltip" title="Notifications"> -->
+                        <div class="rounded border" style="width:25px;height:25px;" ><p class="User-profile-pic-text">{{userName}}</p></div>
+                      </a>
+                        <div class="dropdown-menu" style="Left:88% !important;" aria-labelledby="AccountDropDown">
+                            <a class="dropdown-item drops" href="/messenger/mainPage"><span class="fa fa-user m-1"></span>: {{userName}}</a>
+                            <a class="dropdown-item drops" href="/messenger/logout">Sign Out</a>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="d-flex bd-highlight">
+            <lottie-player class="lotte_custom" src="https://assets8.lottiefiles.com/packages/lf20_vRtSve.json"  background="transparent"  speed="1" loop autoplay></lottie-player>
+            <div class="flex-fill bd-highlight text-center" style="background-color:#fff;">
+                <h1 class="heading">Create Your Workspace here!</h1>
+                <div class="createWorkspaceForm rounded shadow-lg p-4">
+                    <form action="/messenger/createWorkSpace" method="POST">
+                        <input type="hidden" name="userName" class="form-control" value="{{userName}}" placeholder="UserName" readonly>
+                        <div class="mb-3">
+                          <label class="form-label float-left">WorkSpace Name :</label>
+                          <input type="text" autocomplete="off" class="form-control" id="workSpaceName" name="workSpaceName" placeholder="Enter Your WorkSpace Name" onkeypress="return AvoidSpace(event)">
+                          <div id="emailHelp" class="form-text float-right">&#10071; Spaces are Not Allowed!!!</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputPassword1" class="form-label float-left">Description :</label>
+                          <textarea name="description" type="text" style="height: 100px !important;" class="form-control" placeholder="Say Something about your Workspace!!" id="exampleInputPassword1"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+        <style>
+          .t-c li{font-size: 12px;}
+          .footer_head {
+            font-weight: 600;
+          }
+        </style>
+        <div class="d-flex bd-highlight w-100 p-2 text-white text-center fixed-bottom" style="background-color: #03076d
+        ;height: 30px;">
+        <small>Prematix Software Solutions pvt. ltd.</small>
+            <div class="p-2 flex-fill bd-highlight d-none" style="width:300px;">
+              <p class="footer_head">Terms & Conditions</p>
+              <small>An integrated workspace that’s simple to use, Google Workspace lets you spend less time managing your work and more time actually doing it.</small>
+            </div>
+            <div class="p-1 flex-fill bd-highlight d-none" style="width:300px;">
+              <P class="m-o p-0 footer_head">Prematix Software solutions Pvt. Ltd.</P>
+              <small>
+                Main Strength of Prematix is that our expert team is equipped in every facet of web and software development, specialized and highly focused.
+              </small>
+          </div>
+            <div class="p-2 flex-fill bd-highlight d-none" style="width:200px;">
+              <p class="m-0 p-0 footer_head">Contact</p>
+              <small>
+                Address : 51, Step colony, Dharga,
+                Hosur - 635 126,
+                Tamilnadu, India.
+                Phone : +91 9344270900
+                Email : info@prematix.com
+              </small>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script src="/messenger/static/js/popper.js"></script>
+        <script src="/messenger/static/js/bootstrap.min.js"></script>
+        <script>
+            function AvoidSpace(event) {
+                var k = event ? event.which : window.event.keyCode;
+                if (k == 32) return false;
+            }
+        </script>
+    </body>
+</html>
+
+

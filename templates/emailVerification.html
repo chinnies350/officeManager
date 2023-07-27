@@ -1,0 +1,102 @@
+<html>
+
+<head>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/messenger/static/css/signup.css">
+  <link rel="icon" href="/messenger/static/chatIcon.png">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+  <div class="main">
+
+
+    <div class="container">
+      <center>
+        <div class="middle">
+          <div id="login">
+
+            <form action="/messenger/verifyEmail" method="POST">
+
+              <fieldset class="clearfix">
+                <h1 style="color:white;padding:10px">Sign Up</h1>
+                <!--email verication area start  -->
+
+                <!-- <p><span style="width:50%; text-align:center;  display: inline-block;"><button type="button"
+                      value="Verify email" id=" ">verify Email</button></p> -->
+                <!-- onclick="verifyEmail()" -->
+                <!--email verication area end  -->
+                <p><span class="fa fa-user"></span><input name="username" type="text" value="{{userName}}" required
+                    autocomplete="off" id="userName" readonly></p>
+                <p><span class="fa fa-lock"></span><input name="password" type="password" value="{{password}}" required
+                    id="password" readonly></p>
+                <p><span class="fa fa-envelope"></span><input name="emailId" type="email" id="" value="{{emailId}}"
+                    required autocomplete="off" style="width:200px;padding-left: 10px;" readonly>
+                </p>
+
+                <p><input name="otp" type="text" id="text" Placeholder="Enter the OTP" required autocomplete="off"
+                    style="width:250px;padding-left: 10px;"></p>
+                <div>
+                  <a style="color:white;width:50%;margin-right: 40px;" href="/messenger/">Sign
+                    In</a>
+                  <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit"
+                      value="Verify Otp" id=></span>
+                </div>
+              </fieldset>
+
+
+              <div class="clearfix"></div>
+            </form>
+
+            <div class="clearfix"></div>
+
+          </div>
+
+          <div class="logo">ChatApp
+
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+
+      </center>
+      <br>
+
+      <center><b style="color:white;font-weight: normal;">* Please Sign Up Your Account from Here *</b><br>
+        <h6 style="color: red;">{{ errno }}</h6>
+      </center>
+    </div>
+
+  </div>
+  <!-- <script>
+
+    const URL = "192.168.1.18:10000"
+
+    $("#VerifyMailBtn").click(function () {
+      $.get(`${URL}/Test`,
+        { "emailId": $("#emailId").text() },
+        function (data) {
+          alert('page content: ' + data);
+        }
+      );
+    }) -->
+  <!-- function verifyEmail() {
+     let obj = {};
+     obj.emailId = document.getElementById("emailId").value;
+     let jsonStringObj = JSON.stringify(obj);
+     socket.send(jsonStringObj);
+    / console.log(jsonStringObj)
+
+
+     } -->
+
+
+  <!-- </script> -->
+  <script>
+    alert("Please check your OTP from mail")
+  </script>
+  </body>
+
+</html>

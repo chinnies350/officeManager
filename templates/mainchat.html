@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Office Messenger</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- css file path -->
+    <link rel="stylesheet" href="/messenger/static/css/main.css">
+    <link rel="stylesheet" href="/messenger/static/css/modal.css">
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+    <link rel="icon" href="/messenger/static/chatIcon.png">
+    <script src="/messenger/ckeditor/ckeditor.js"></script>
+    <style>
+        /* .userName h1 {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.9);
+            border-radius: 5px;
+            margin-top: 5px;
+            width: fit-content;
+            padding: 5px 10px 5px 10px;
+            background-color: white
+        } */
+        .file-upload {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .file-upload input {
+            position: absolute;
+            height: 400px;
+            width: 400px;
+            left: -200px;
+            top: -200px;
+            background: transparent;
+            opacity: 0;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+            filter: alpha(opacity=0);
+        }
+
+        .file-upload img {
+            height: 30px;
+            width: 30px;
+            margin: 15px;
+        }
+        .modal-dialog{
+            pointer-events: all !important;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+            data-target="#sidebar" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-align-justify"></i>
+        </button>
+        <nav id="sidebar">
+            <div element.onclick="/messenger/" class="sidebar-header">
+                <h3>{{workSpaceName}}</h3>
+                <strong>CA</strong>
+                <form action="/messenger/switchWorkPlace" method="POST">
+                    <select name="workSpaceName" onchange="this.form.submit()">
+                        <option value="switchWorkPlace">switchWorkPlace</option>
+                        {% for space in workspaces %}
+                            <option value="{{ space }}">{{ space }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+                <script>
+                    function userName() {
+                        return "{{userName}}"
+                    } function workSpaceName() {
+                        return "{{workSpaceName}}"
+                    }
+                </script>
+            </div>
+            <ul class="list-unstyled components">
+                <!-- -------------------------------------group msg pill------------------------------------- -->
+                <li class="active">
+                    <a href="#myTab" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-users"></i>
+                        Group Message
+                    </a>
+                    <ul class="collapse list-unstyled nav nav-tabs" id="myTab">
+                        <li style="width: 100%;">
+                            <a class="nav-link" id="v-pills-group-tab" data-toggle="modal" href="#popup" role="tab"
+                                aria-controls="v-pills-group" aria-selected="false" style="background: #4a5792;">
+                                Create Group<i class="fas fa-plus" style="float:right;margin:4px 10px 0px 0px;"></i></a>
+                        </li>
+                        {% for group in groupmembers %}
+                        <li style="width: 100%;" onclick="show()">
+                            <a class="nav-link" id="v-pills-group-tab" data-toggle="pill" href="#{{group[0]}}-" role="tab"
+                                aria-controls="v-pills-group" aria-selected="false">{{group[0]}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <!-- -------------------------------------group msg pill end------------------------------------- -->
+
+
+
+                <!-- ------------------------------------private msg pill------------------------------------- -->
+
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-user-shield"></i>
+                        Private Message
+                    </a>
+                    <ul class="collapse list-unstyled nav nav-tabs" id="pageSubmenu">
+                        {% for user in Users %}
+                        {% if user != userName %}
+                        <li style="width: 100%;" onclick="show()">
+                            <a class="nav-link popup" id="v-pills-mohan-tab older" data-toggle="pill" href="#{{user}}-"
+                                role="tab" aria-controls="v-pills-mohan" aria-selected="false">{{user}}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                </li>
+                <!-- -------------------------------------private msg pill end------------------------------------- -->
+                <li>
+                    <a href="#">
+                        <i class="fas fa-question"></i>
+                        FAQ
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-paper-plane"></i>
+                        Contact
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a class="nav-link" id="WorkSpace" href="/messenger/createWorkSpace" aria-controls="v-pills-group" aria-selected="false"
+                        style="background: #4a5792;">
+                        Create WorkSpace<i class="fas fa-sign-out-alt" style="float:right;margin:4px 10px 0px 0px;"></i></a>
+                </li>
+                <li>
+                    <a class="nav-link" id="v-pills-Addfriend-tab" data-toggle="modal" href="#Addfriend" role="tab"
+                        aria-controls="v-pills-Addfriend" aria-selected="false" style="background: #4a5792;">
+                        Add friends<i class="fas fa-plus" style="float:right;margin:4px 10px 0px 0px;"></i></a> 
+                </li>
+                <!-- <li>
+                    <a class="nav-link" id="v-pills-group-tab" href="/editProfile" role="tab"
+                        aria-controls="v-pills-group" aria-selected="false" style="background: #4a5792;">
+                        Edit Profile<i class="fas fa-arrow-circle-right"
+                            style="float:right;margin:4px 10px 0px 0px;"></i></a>
+                </li> -->
+                <li>
+                    <a class="nav-link" id="logout" href="/messenger/logout" aria-controls="v-pills-group" aria-selected="false"
+                        style="background: #4a5792;">
+                        Logout<i class="fas fa-sign-out-alt" style="float:right;margin:4px 10px 0px 0px;"></i></a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" class="mx-auto">
+                <div class="tab-content" style="margin-left:230px;" id="v-pills-tabContent">
+                    <!-- ------------------------------------------------active content--------------------------------------------------- -->
+                    <div class="tab-pane fade show active" id="HOME-tab" role="tabpanel"
+                        aria-labelledby="v-pills-home-tab">
+                        <!-- <h1>{{userName}}</h1> -->
+                        <h1>Welcome to Office Messenger</h1>
+                        <!-- <p>Click on any user to Continue with the chat...</p> -->
+                    </div>
+                    <!-- ------------------------------------------------active content end--------------------------------------------------- -->
+                    <!-- --------------------------------------------------------private1 msg tab------------------------------------------------------------------------------ -->
+                    {% for group in groupmembers %}
+                    <div class="tab-pane fade" id="{{group[0]}}-" role="tabpanel"
+                        aria-labelledby="v-pills-pandi-tab">
+                        <div class="userName">
+                            <h1 style="display:inline-block;">{{group[0]}}</h1>
+                            <!-- <button class="btn btn-warning" style="display:inline-block;margin: 10px;" type="button" data-toggle="modal" href="#addUser" role="tab" aria-controls="v-pills-group"
+                            aria-selected="false">Add User</button> -->
+                            <button class="btn btn-warning" style="display:inline-block;margin: 10px;" type="button" data-toggle="modal" href="#{{group[0]}}-members" role="tab" aria-controls="v-pills-group"
+                            aria-selected="false">Groupmembers</button>
+                            <!-- <div class="groupmembers d-none">
+                                {% for members in group[1] %}
+                                <p>{{ members }}</p>
+                                {% endfor %}
+                            </div> -->
+                        </div>
+                        <div id="{{group[0]}}" style="overflow:scroll;margin-top:50px;position:fixed;width:100%;height:450px;">
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% for user in Users %}
+                        {% if user != userName %}
+                        <div class="tab-pane fade" id="{{user}}-" role="tabpanel"
+                            aria-labelledby="v-pills-pandi-tab">
+                            <div class="userName">
+                                <h1>{{user}}</h1>
+                            </div>
+                            <div id="{{user}}" class="chatBody" style="overflow:scroll;margin-top:40px;position:fixed;width:100%;height:450px;">
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Input Group -->
+                    <div id="inputGroup" class="" style="display:none;border-style: double;background-color:#f5ecda;width:81.5%;position:fixed;bottom:0;right:0;">
+                        <div placeholder="Type your Messages here..." name="editor" ></div>
+                        <div>
+                            <button style="float:right;margin:2px;"  onclick="do_post()" type="button" class="btn btn-warning">Send</button>
+                            <button style="float:right;margin:2px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#fileUpload"  onclick="">Send File</button>
+                        </div>
+                        </div>
+                    <!-- End Input Group -->
+                    <script>
+                        var editor = CKEDITOR.replace( 'editor' );
+                        function getEditorValue()
+                        {
+                          var y=jQuery(editor.getData()).text()
+                          //y=editor.getData()
+                          editor.setData("")
+                          return y
+                        }
+                      </script>
+
+                
+                    <!-- --------------------------------------------------------private msg tab end------------------------------------------------------------------------------ -->
+
+                </div>
+            </div>
+    </div>
+    <div id="popup" class="modal fade" role="dialog" style="height: 100vh;text-align: center;">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button data-dismiss="modal" class="close">&times;</button>
+                    <h4>Create a group</h4>
+                    <form>
+                        <input type="text" name="groupName" class="groupName form-control add" id="groupName"
+                            placeholder="Group Name" autocomplete="off" required />
+                        <input type="text" name="groupDescription" class="password form-control add"
+                            id="groupDescription" placeholder="Description" autocomplete="off" required />
+                        <input class="btn login" onclick="modalFunction()" type="button" data-dismiss="modal"
+                            value=" Create" id="btn" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Addfriend" class="modal fade" role="dialog" style="height: 100vh;text-align: center;">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button data-dismiss="modal" class="close">&times;</button>
+                    <h4>Add friend</h4>
+                    <form>
+                        <input type="email" name="email" class="email form-control add" id="email"
+                            placeholder="Enter the email" autocomplete="off" />
+                        <input class="btn login" onclick="addUserToWorkSpace()" type="button" data-dismiss="modal"
+                            value="Add" id="btnAddFriend" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End GroupMembers Modal --> 
+    {% for group in groupmembers %}
+    <div id="{{group[0]}}-members" class="modal fade" role="dialog" style="height: 100vh;text-align: center;">
+        <div class="modal-dialog">
+                <div class="card" style="width: 18rem;">
+                    <div style="background-color: #4a5792;
+                    color: white;" class="card-header">
+                      Group Members
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    {% for member in workSpaceMembers%}
+                        {% if member in group[1] %}
+                        <li class="list-group-item">{{ member }}
+                        </li>
+                        {% else %}
+                        <li class="list-group-item"><p id="{{member}}-data">{{ member }}</p>
+                            <button style="float: right;" id="rtreytreye" class="btn btn-primary" style="display:inline-block;margin:10px;" onclick="addUserFromModal('{{userName}}','{{member}}')">Add</button>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                  </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- End GroupMembers Modal -->
+    
+    <div id="addUser" class="modal fade" role="dialog" style="height: 100vh;text-align: center;">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button data-dismiss="modal" class="close">&times;</button>
+                    <h4>Add user to group</h4>
+                    <form>
+                        <input type="text" name="addUser" class="addUser form-control add" id="addUserName"
+                            placeholder="Enter the user name" autocomplete="off" required />
+                        <input class="btn login" onclick="addUserFunction()" type="button" data-dismiss="modal"
+                            value="Add" id="addUserBtn" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- File Upload Modal -->
+    <div id="fileUpload" class="modal fade" role="dialog" style="height: 100vh;text-align: center;">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="Text-center">File Upload</p>
+                    <form id="fileUpload" action="/messenger/fileUpload" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+
+                        <label for="file">fileUpload</label>
+                        <input id="file" name="file" type="file" value=""/>
+                        <input type="button" onclick="sendfile()" value="submit"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- File Upload Modal -->
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    // <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    // <!-- <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> -->
+    
+
+    <!-- js file path -->
+    <script src="/messenger/static/js/script.js"></script>
+    <script src="/messenger/static/js/modal.js"></script>
+    <!-- after 3 second its run a function -->
+    <script>
+        setTimeout(function () { retrieveOlderMessage(); }, 2000);
+
+        // $("#rtreytreye").on("click", function(){
+        //         // alert("veeresh")
+        //         console.log("234235436437")
+        //     })
+    </script>
+</body>
+
+</html>

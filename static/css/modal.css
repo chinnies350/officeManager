@@ -1,0 +1,71 @@
+/*Modal*/
+h4 {
+    font-weight: bold;
+    color: #fff;
+  }
+  .close {
+    color: #fff;
+    transform: scale(1.2)
+  }
+  .modal-content {
+    font-weight: bold;
+    background: linear-gradient(to bottom right,#6d7fcc,#B05574);
+  }
+  .add {
+    margin: 1em 0;
+    color: black;
+  }
+  .add:hover, .add:focus {
+    box-shadow: none;  
+  }
+  .groupName, .password {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 2px solid #eee;
+    padding-left: 0;
+    font-weight: normal;
+    background: transparent;  
+  }
+  .add::-webkit-input-placeholder {
+    color: #eee;  
+    border: #022647;
+  }
+  .add:focus::-webkit-input-placeholder {
+    font-weight: bold;
+    
+  }
+  .Create {
+    padding: 6px 20px;
+    border-radius: 20px;
+    background: none;
+    border: 2px solid #FAB87F;
+    color: #6d7fcc;
+    font-weight: bold;
+    transition: all .5s;
+    margin-top: 1em;
+  }
+  .Create:hover {
+    background: #6d7fcc;
+  }
+
+  /* add user design */
+  .addUser{
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 2px solid #eee;
+    padding-left: 0;
+    font-weight: normal;
+    background: transparent; 
+
+  }
+  .email{
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 2px solid #eee;
+    padding-left: 0;
+    font-weight: normal;
+    background: transparent; 
+  }

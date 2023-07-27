@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>profile</title>
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+    integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+    crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+    integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+    crossorigin="anonymous"></script>
+
+</head>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+    margin: 0;
+  }
+
+  #sidebar {
+    background: #7386D5;
+    color: #fff;
+  }
+
+  #sidebar ul li a {
+    text-align: left;
+  }
+
+  #sidebar.active ul li a {
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+  }
+
+  #sidebar.active ul li a i {
+    margin-right: 0;
+    display: block;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+  }
+
+  #sidebar.active ul ul a {
+    padding: 10px;
+  }
+
+  #sidebar .sidebar-header {
+    padding: 20px;
+    background: #4a5792;
+  }
+
+  a,
+  a:hover,
+  a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  #sidebar .sidebar-header strong {
+    display: none;
+    font-size: 1.8em;
+  }
+
+  #sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+  }
+
+  #sidebar ul li a {
+    padding: 10px;
+    /* font-size: 1.1em; */
+    display: block;
+  }
+
+  #sidebar ul li a {
+    padding: 10px;
+  }
+
+  .nav-pills .nav-link.active,
+  .nav-pills .show>.nav-link {
+    color: #fff;
+    background: #4a5792;
+  }
+
+  #sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+  }
+
+  #sidebar ul li a {
+    color: #fff;
+    margin-left: 15px;
+  }
+
+  #sidebar ul li a i {
+    margin-right: 10px;
+  }
+
+  #sidebar ul li.active>a,
+  a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+  }
+
+  ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+  }
+
+  ul.CTAs {
+    padding: 20px;
+  }
+
+  ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  a.download {
+    background: #fff;
+    color: #7386D5;
+  }
+
+  a.article,
+  a.article:hover {
+    background: #6d7fcc !important;
+    color: #fff !important;
+  }
+
+  #sidebar {
+    height: 100%;
+
+    /* position: fixed; */
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    overflow-y: scroll;
+    overflow: hidden;
+  }
+
+  #sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  .profile-header {
+    position: relative;
+    overflow: hidden
+  }
+
+  .profile-header-content {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0
+  }
+
+  .profile-header-content {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, #6d7fcc, white 170%)
+  }
+
+  .profile-header .profile-header-content {
+    color: #fff;
+    padding: 25px;
+    margin-top: 0px;
+    height: 225px;
+  }
+
+  .profile-header-img {
+    float: left;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    margin: 0 0 -20px;
+    padding: 3px;
+    border-radius: 4px;
+    background: #fff
+  }
+
+  .profile-header-img img {
+    max-width: 100%
+  }
+
+  .profile-header-info h4 {
+    font-weight: 500;
+    color: #fff
+  }
+
+  .profile-header-img+.profile-header-info {
+    margin-left: 140px
+  }
+
+  .profile-header .profile-header-content,
+  .profile-header .profile-header-tab {
+    position: relative
+  }
+
+  /* friend list */
+  .maincard {
+    position: relative;
+    width: 300px;
+    height: 300px
+  }
+
+  .thecard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.8s ease
+  }
+
+  /* .thecard:hover {
+    transform: rotateY(180deg)
+  } */
+
+  .thefront {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: hidden;
+    background: #6d7fcc;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #eee;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    padding: 10px
+  }
+
+  /* .theback {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background-color: hidden;
+    background: #6d7fcc;
+    color: #fff;
+    border-radius: 10px;
+    transform: rotateY(180deg);
+    border: 1px solid #eee;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    padding: 10px
+  } */
+
+  .user_name {
+    color: #eee;
+    font-size: 10px;
+    margin-top: 0px
+  }
+
+  .about {
+    font-size: 12px
+  }
+</style>
+
+<body style="overflow-y: hidden;overflow-x: hidden;">
+  <!-- wrapper start -->
+  <div class="wrapper">
+    <div class="row" style="height:100vh;">
+      <!-- sidenavbar start -->
+      <div class="col-2" style="height: 100%;">
+        <!-- resposive button to sidenavbar start-->
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="sidebar"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button> -->
+        <!-- resposive button to sidenavbar  end-->
+        <nav id="sidebar" style="overflow-y: scroll;height: 100%;width: 115%;">
+          <div element.onclick="/" class="sidebar-header">
+            <h3>ChatApp</h3>
+            <strong>CA</strong>
+          </div>
+          <ul class="list-unstyled components nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+            <li>
+              <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="/mainPage" role="tab"
+                aria-controls="v-pills-home" aria-selected="false">
+                <i class="fas fa-home"></i>
+                Home
+              </a>
+            </li>
+            <li>
+              <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                aria-controls="v-pills-profile" aria-selected="false">
+                <i class="fas fa-address-card"></i>
+                Myprofile
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" id="v-pills-FriendsList-tab" data-toggle="pill" href="#v-pills-FriendsList" role="tab"
+                aria-controls="v-pills-Friends" aria-selected="true">
+                <i class="fas fa-user-friends"></i>
+                Friends List
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" id="v-pills-groupList-tab" data-toggle="pill" href="#v-pills-group" role="tab"
+                aria-controls="v-pills-group" aria-selected="false">
+                <i class="fas fa-users"></i>
+                Group List
+              </a>
+            </li>
+          </ul>
+
+          <ul class="list-unstyled CTAs">
+            <li>
+              <a class="nav-link" id="v-pills-group-tab" data-toggle="modal" href="#invitePeople" role="tab"
+                aria-controls="v-pills-group" aria-selected="false" style="background: #4a5792; margin-right:15px">
+                Invite People
+                <i class="fas fa-plus" style="float:right;margin:4px 10px 0px 0px;"></i></a>
+            </li>
+          </ul>
+
+        </nav>
+
+      </div>
+      <!-- right side area start -->
+      <div class="col-10" style="height: 100vh;">
+        <!-- tab connect class  start-->
+        <div class="tab-content" id="v-pills-tabContent">
+          <!-- profile tab start -->
+          <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"
+            aria-labelledby="v-pills-profile-tab">
+            <div id="content" class="content" style="height:225px">
+              <!-- begin profile -->
+              <div class="profile">
+                <div class="profile-header">
+                  <!-- BEGIN profile-header-cover -->
+                  <!-- END profile-header-cover -->
+                  <!-- BEGIN profile-header-content -->
+                  <div class="profile-header-content">
+                    <!-- BEGIN profile-header-img -->
+
+                    <div class="profile-header-img">
+
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                    </div>
+                    <!-- END profile-header-img -->
+                    <!-- BEGIN profile-header-info -->
+                    <div class="profile-header-info">
+                      <h4 class="m-t-10 m-b-5">{{Username}}</h4>
+                      <p class="m-b-10">Software Trainee</p>
+                    </div>
+                    <!-- END profile-header-info -->
+                  </div>
+                  <!-- END profile-header-content -->
+                  <!-- BEGIN profile-header-tab -->
+                  <!-- END profile-header-tab -->
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12" style="height:100vh;padding:0px;">
+              <div class="col-3" style=" height: 100%;float: left;width: 110%;">
+              </div>
+
+              <!-- user details start -->
+              <div class="col-9"
+                style="background: linear-gradient(to top, #6d7fcc, white 170%); height: 100%;float: left;width: 170%;">
+
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
+                      placeholder="name" value="" id="name"></div>
+                  <div class="col-md-6"><label class="labels">PhoneNumber</label><input type="text" class="form-control"
+                      placeholder="enter phone number" value="" id="phoneNumber"></div>
+                </div>
+                <div class="row mt-3">
+
+                  <div class="col-md-7"><label class="labels">Email ID</label><input type="text" class="form-control"
+                      placeholder="enter email id" value="" id="email"></div>
+                  <div class="col-md-5"><label class="labels">Job Details</label><input type="text" class="form-control"
+                      placeholder="job Details" value="" id="job"></div>
+
+                </div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button"
+                    style="background-color:#4a5792;" onclick="editProfile()">Save Profile</button>
+                  <button class="btn btn-primary profile-button" type="button" style="background-color:#4a5792;"
+                    onclick="emailVerification()">Verify
+                    email Id</button>
+                </div>
+
+              </div>
+              <!-- user details end -->
+            </div>
+
+
+
+          </div>
+          <!-- profile tab end -->
+
+          <!-- friend list tab start -->
+          <div class="tab-pane fade" id="v-pills-FriendsList" role="tabpanel" aria-labelledby="v-pills-FriendsList-tab"
+            style="widows: 100%;margin-right: 30px; margin-left: 10px;">
+            <div class="row" style="width:100%;">
+              <div class="col-2 px-2 py-2">
+                <div class="maincard px-2 py-4 w-100" style="height: 250px">
+                  <div class="thecard">
+                    <div class="thefront text-center py-4"> <img src="https://i.imgur.com/o5uMfKo.jpg"
+                        class="rounded-circle mt-3" width="100">
+                      <h3 class="mt-2 mb-0">josh</h3> <small class="user_name">Software developer</small>
+
+                      <button onclick="alert('hi')" id="unfollow" style="background-color:#d2abe4">Unfollow</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- friend list tab end-->
+
+          <!-- group list tab start -->
+          <div class="tab-pane fade" id="v-pills-group" role="tabpanel" aria-labelledby="v-pills-group-tab"
+            style="widows: 100%;margin-right: 30px; margin-left: 10px;">
+            <div class="row" style="width:100%;">
+              <div class="col-2 px-2 py-2">
+                <div class="maincard px-2 py-4 w-100" style="height: 250px">
+                  <div class="thecard">
+                    <div class="thefront text-center py-4"> <img
+                        src="https://library.kissclipart.com/20181001/wbw/kissclipart-gsmnet-ro-clipart-computer-icons-user-avatar-4898c5072537d6e2.png"
+                        class="rounded-circle mt-3" width="80%">
+                      <h3 class="mt-2 mb-0">Python</h3> <small class="user_name">Development team</small>
+
+                      <button onclick="alert('hi')" id="unfollow" style="background-color:#272329">Unfollow</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 px-2 py-2">
+                <div class="maincard px-2 py-4 w-100" style="height: 250px">
+                  <div class="thecard">
+                    <div class="thefront text-center py-4"> <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS-VIvzTzp7A0Zj86JHG4QnrUkqQuk-AjrZQA&usqp=CAU"
+                        class="rounded-circle mt-3" width="80%">
+                      <h3 class="mt-2 mb-0">Python</h3> <small class="user_name">Development team</small>
+
+                      <button onclick="alert('hi')" id="unfollow" style="background-color:#272329">Unfollow</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- group list tab end-->
+        </div>
+        <!-- tab connect class end-->
+
+
+
+      </div>
+      <!-- right side area end -->
+
+    </div>
+
+  </div>
+  <!-- wrapper end -->
+
+
+
+  <script src="/messenger/static/js/script.js"></script>
+</body>
+
+
+
+</html>

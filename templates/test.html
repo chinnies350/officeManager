@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+  <div>
+  <form>
+    <div class="mb-3">
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    </form>
+  </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <center>
+      <div class="btn-group dropup m-6">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        &#128512;
+      </button>
+      <style>
+        .emoji li{float:left;list-style-type:none;font-size: 15px;margin:0.5px;padding:0.5px;}
+      </style>
+      <ul style="height:225px;width:225px;" class="dropdown-menu emoji">
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+        <li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li><li>&#128512;</li>
+      </ul>
+    </div>
+  </center>
+
+  <h2>HTML5 File Upload Progress Bar Tutorial</h2>
+<form id="upload_form" enctype="multipart/form-data" method="post">
+  <input type="file" name="file1" id="file1" onchange="uploadFile()"><br>
+  <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+  <h3 id="status"></h3>
+  <p id="loaded_n_total"></p>
+</form>
+
+
+<script>
+  function _(el) {
+  return document.getElementById(el);
+}
+
+function uploadFile() {
+  var file = _("file1").files[0];
+  // alert(file.name+" | "+file.size+" | "+file.type);
+  var formdata = new FormData();
+  formdata.append("file1", file);
+  var ajax = new XMLHttpRequest();
+  ajax.upload.addEventListener("progress", progressHandler, false);
+  ajax.addEventListener("load", completeHandler, false);
+  ajax.addEventListener("error", errorHandler, false);
+  ajax.addEventListener("abort", abortHandler, false);
+  ajax.open("POST", "/messenger/fileUpload");
+  //use file_upload_parser.php from above url
+  ajax.send(formdata);
+}
+
+function progressHandler(event) {
+  _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+  var percent = (event.loaded / event.total) * 100;
+  _("progressBar").value = Math.round(percent);
+  _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+}
+
+function completeHandler(event) {
+  _("status").innerHTML = event.target.responseText;
+  _("progressBar").value = 0; //wil clear progress bar after successful upload
+}
+
+function errorHandler(event) {
+  _("status").innerHTML = "Upload Failed";
+}
+
+function abortHandler(event) {
+  _("status").innerHTML = "Upload Aborted";
+}
+</script>
+
+</body>
+</html>
